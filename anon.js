@@ -224,11 +224,22 @@ async function sendStatus(account, status, edit) {
 
 function inspect(account, edit) {
   if (edit.url) {
-    if (account.whitelist && account.whitelist[edit.wikipedia]
+    if (account.whitelist && account.ranges && edit.anonymous
+        && account.whitelist[edit.wikipedia]
+        && account.whitelist[edit.wikipedia][edit.page]) {
+        for (let name in account.ranges) {
+        const ranges = account.ranges[name]
+        if (isIpInAnyRange(edit.user, ranges)) {
+          status = getStatus(edit, name, account.template)
+          sendStatus(account, status, edit)
+        }
+      }
+    } else if (account.whitelist && !account.ranges
+        && account.whitelist[edit.wikipedia]
         && account.whitelist[edit.wikipedia][edit.page]) {
       status = getStatus(edit, edit.user, account.template)
       sendStatus(account, status, edit)
-    } else if (account.ranges && edit.anonymous) {
+    } else if (account.ranges && !account.whitelist && edit.anonymous) {
       for (let name in account.ranges) {
         const ranges = account.ranges[name]
         if (isIpInAnyRange(edit.user, ranges)) {
