@@ -15,8 +15,9 @@
     "wikichanges": "^0.2.9"
   },
   "devDependencies": {
+    "chai": "latest",
     "mocha": "latest",
-    "chai": "latest"
+    "sinon": "^13.0.1"
   },
   "engines": {
     "node": ">=6"
