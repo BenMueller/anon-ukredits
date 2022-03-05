@@ -2,6 +2,7 @@ const fs = require('fs')
 const anon = require('./anon')
 
 const { assert } = require('chai')
+const { sinon } = require('sinon')
 const { compareIps, isIpInRange, isIpInAnyRange } = anon
 
 describe('anon', function() {
@@ -47,6 +48,42 @@ describe('anon', function() {
     it('false positive not in ranges #12', function() {
       assert.isFalse(isIpInAnyRange('199.19.250.20', [["199.19.16.0", "199.19.27.255"], ["4.42.247.224", "4.42.247.255"]]))
       assert.isFalse(isIpInAnyRange('39.255.255.148', [["40.0.0.0", "40.127.255.255"], ["40.144.0.0", "40.255.255.255"]]))
+    })
+  })
+
+  describe('inspect', function() {
+    let account = {
+      whitelist = true,
+      ranges =
+
+    }
+    let edit = {
+      url: "https://en.wikipedia.org/w/index.php?diff=example&oldid=example",
+      anonymous = true,
+      wikipedia: "English Wikipedia",
+      page: "TestPage",
+      user: "192.168.0.0"
+    }
+    var isIpInAnyRange() = sinon.fake();
+    var getStatus = sinon.fake();
+    var sendStatus = sinon.fake();
+
+    describe('whitelist, range', function() {
+      it('page is being watched and ip on whitelist', function() {
+        getStatus.withArgs(edit, account.ranges[0], account.template)
+        sendStatus.withArgs("values here", "status", "edit");
+
+
+      })
+    })
+    describe('whitelist', function() {
+      it('page is on whitelist', function() {
+        sendStatus.withArgs("", "", "");
+      })
+
+    })
+    describe('range', function() {
+
     })
   })
 
