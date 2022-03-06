@@ -64,11 +64,14 @@ function isIpInAnyRange(ip, blocks) {
 
 function getConfig(path) {
   const config = loadJson(path)
-  // see if ranges are externally referenced as a separate .json files
+  // see if ranges or whitelist are externally referenced as a separate .json files
   if (config.accounts) {
     for (let account of Array.from(config.accounts)) {
       if (typeof account.ranges === 'string') {
         account.ranges = loadJson(account.ranges)
+      }
+      if (typeof account.whitelist === 'string') {
+        account.whitelist = loadJson(account.whitelist)
       }
     }
   }
